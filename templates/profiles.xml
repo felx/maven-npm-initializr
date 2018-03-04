@@ -1,3 +1,4 @@
+<profilesXml><profiles>
 		<profile>
 			<id>maven-frontend-web</id>
 			<activation>

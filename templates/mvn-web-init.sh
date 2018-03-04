@@ -22,7 +22,7 @@ function tpl_out(){
 }
 
 function concat_profiles(){
-    set output_file=$1
+    output_file=$1
     echo "concat_profiles to $0 $output_file"
     echo '<profilesXml><profiles>' > $output_file
     ls profile.*.xml 
