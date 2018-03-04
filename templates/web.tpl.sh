@@ -1,5 +1,7 @@
 #!/bin/bash
 
+project=MVN_$project_PROJECT_NAME
+
 function sourceme(){
    echo "source me :"
    echo ". $0"
@@ -8,8 +10,8 @@ function sourceme(){
 
 [[ $_ != $0 ]] || sourceme
 
-NODE_HOME=$(pwd)/src/web/node_modules/.node/node
-PATH=$(pwd)/src/web/node_modules/.bin:$NODE_HOME:$PATH
+NODE_HOME=$(pwd)/src/$project/node_modules/.node/node
+PATH=$(pwd)/src/$project/node_modules/.bin:$NODE_HOME:$PATH
 echo now running node $(node --version) and npm $(npm -version)
-cd src/web
+cd src/$project
 echo have fun !
