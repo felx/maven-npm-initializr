@@ -1,0 +1,1 @@
+# initialized with maven-npm-initializr

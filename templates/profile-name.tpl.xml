@@ -1,0 +1,52 @@
+		<profile>
+			<id>maven-frontend-MVN_WEB_PROJECT_NAME</id>
+			<activation>
+				<file><exists>src/MVN_WEB_PROJECT_NAME/package.json</exists></file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<version>1.6</version>
+						<configuration>
+							<nodeVersion>MVN_WEB_NODE_VERSION</nodeVersion>
+							<npmVersion>MVN_WEB_NPM_VERSION</npmVersion>
+							<workingDirectory>src/MVN_WEB_PROJECT_NAME</workingDirectory>
+							<installDirectory>src/MVN_WEB_PROJECT_NAME/node_modules/.node</installDirectory>
+						</configuration>
+
+						<executions>
+							<execution>
+								<phase>initialize</phase>
+								<id>install-node-and-npm</id>
+								<goals>
+									<goal>install-node-and-npm</goal>
+								</goals>
+							</execution>
+							<execution>
+								<phase>initialize</phase>
+								<id>npm install</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<configuration>
+									<arguments>install --no-save --loglevel silent</arguments>
+									<!-- c.f. https://github.com/eirslett/frontend-maven-plugin/issues/642 -->
+								</configuration>
+							</execution>
+							<execution>
+								<phase>generate-resources</phase>
+								<id>npm run build</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<configuration>
+									<arguments>run build</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
