@@ -1,8 +1,24 @@
-<profilesXml><profiles>
-		<profile>
-			<id>maven-frontend-web</id>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>frontend</groupId>
+        <artifactId>builds</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>..</relativePath> <!-- lookup parent from repository -->
+    </parent>
+
+    <artifactId>MVN_WEB_PROJECT_NAME</artifactId>
+    
+    <packaging>jar</packaging>
+    
+    <profiles>
+    		<profile>
+			<id>maven-frontend-MVN_WEB_PROJECT_NAME</id>
 			<activation>
-				<file><exists>src/web/package.json</exists></file>
+				<file><exists>>../../src/MVN_WEB_PROJECT_NAME/package.json</exists></file>
 			</activation>
 			<build>
 				<plugins>
@@ -11,10 +27,10 @@
 						<artifactId>frontend-maven-plugin</artifactId>
 						<version>1.6</version>
 						<configuration>
-							<nodeVersion>v8.9.4</nodeVersion>
-							<npmVersion>5.6.0</npmVersion>
-							<workingDirectory>src/web</workingDirectory>
-							<installDirectory>src/web/node_modules/.node</installDirectory>
+							<nodeVersion>MVN_WEB_NODE_VERSION</nodeVersion>
+							<npmVersion>MVN_WEB_NPM_VERSION</npmVersion>
+							<workingDirectory>>../../src/MVN_WEB_PROJECT_NAME</workingDirectory>
+							<installDirectory>>../../src/MVN_WEB_PROJECT_NAME/node_modules/.node</installDirectory>
 						</configuration>
 
 						<executions>
@@ -51,4 +67,6 @@
 				</plugins>
 			</build>
 		</profile>
-</profiles><activeProfiles/></profilesXml>
+    </profiles>
+
+</project>
