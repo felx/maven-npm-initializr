@@ -1,6 +1,6 @@
 #!/bin/bash
 
-project=MVN_$project_PROJECT_NAME
+project=MVN_WEB_PROJECT_NAME
 
 function sourceme(){
    echo "source me :"

@@ -1,5 +1,5 @@
 @echo off
-set PROJECT=MVN_%PROJECT%_PROJECT_NAME
+set PROJECT=MVN_WEB_PROJECT_NAME
 set NODE_HOME=%cd%\src\%PROJECT%\node_modules\.node\node
 PATH=%cd%\src\%PROJECT%\node_modules\.bin;%NODE_HOME%;%PATH%
 echo using
