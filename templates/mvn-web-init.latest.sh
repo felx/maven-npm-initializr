@@ -1,33 +1,34 @@
 #!/bin/bash
 
-# config
-web_maven_project_root="https://raw.githubusercontent.com/felx/maven-npm-initializr/stage/templates"
-remote=true
+echo $project_name
+if [ "$project_name" = "" ]
+then
+echo "ERROR : env variable project_name missing"
+echo "set var project_name BEFORE bash call e.g.:"
+echo "curl https://raw.githubusercontent.com/felx/maven-npm-initializr/stage/templates/mvn-web-init.latest.sh | project_name=ionic bash"
+exit -1
+fi
 
-function read_from_pipe() {
-    read "$@" <&0;
-}
+# config
+web_root="https://raw.githubusercontent.com/felx/maven-npm-initializr/stage"
+maven_project_root=frontend.build
+
 
 # initializing
-default_node_version="v8.9.4"
-default_npm_version="5.6.0"
-default_project_name="web"
-cat /dev/stdin | read -e -i "$default_node_version" -p "node version: " node_version
-cat /dev/stdin | read -e -i "$default_npm_version" -p "npm version: " npm_version
-cat /dev/stdin | read -e -i "$default_project_name" -p "project name: " project_name
 node_version="v8.9.4"
 npm_version="5.6.0"
-project_name="web"
+
 echo "intializing $project_name with node $node_version / npm $npm_version ..."
 
 
-mkdir -p "$web_maven_project_root/$project_name"
-frontend_modules=$(cd $web_maven_project_root; echo  */ | sed 's,/,,g' | tr ' ' '\n' | sed 's,\(.*\),<module>\1</module>,g' )
+mkdir -p "$maven_project_root/$project_name"
+frontend_modules=$(cd $maven_project_root; echo  */ | sed 's,/,,g' | tr ' ' '\n' | sed 's,\(.*\),<module>\1</module>,g' )
 
 # get template content
 function get(){
  template=$1
- curl "$web_maven_project_root/templates/$template"
+ echo curl "$web_root/templates/$template" >> urls.txt
+ curl "$web_root/templates/$template"
 }
 
 function tpl_out(){
@@ -41,7 +42,7 @@ function tpl_out(){
 
 tpl_out "web.tpl.bat" "$project_name.bat"
 tpl_out "web.tpl.sh" "$project_name.sh"
-tpl_out "pom.tpl.xml" "$web_maven_project_root/$project_name/pom.xml"
+tpl_out "pom.tpl.xml" "$maven_project_root/$project_name/pom.xml"
 
 # fixme : bof
 function rebuild_frontend_parent_pom(){
@@ -53,11 +54,11 @@ function rebuild_frontend_parent_pom(){
     echo $pom_footer >> $pom_file
 }
 
-rebuild_frontend_parent_pom "$web_maven_project_root/pom.xml"
+rebuild_frontend_parent_pom "$maven_project_root/pom.xml"
 
-echo "frontend maven project maven-frontend-$project_name : ./$web_maven_project_root/$project_name/pom.xml"
+echo "frontend maven project maven-frontend-$project_name : ./$maven_project_root/$project_name/pom.xml"
 echo "frontend env setup scripts : ./$project_name.bat and ./ $project_name.sh"
 echo "adds these files to your project directory"
 echo "TODO : exec maven plugin to build frontend"
 echo "to initialize, run : "
-echo "mvn -f "$web_maven_project_root/$project_name" -P maven-frontend-$project_name com.github.eirslett:frontend-maven-plugin:install-node-and-npm"
+echo "mvn -f "$maven_project_root/$project_name" -P maven-frontend-$project_name com.github.eirslett:frontend-maven-plugin:install-node-and-npm"
