@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # config
-web_maven_project_root=frontend.build
+web_maven_project_root="https://raw.githubusercontent.com/felx/maven-npm-initializr/stage/templates"
+remote=true
 
 # initializing
 default_node_version="v8.9.4"
@@ -17,8 +18,8 @@ frontend_modules=$(cd $web_maven_project_root; echo  */ | sed 's,/,,g' | tr ' ' 
 
 # get template content
 function get(){
- input_file=$1
- cat $input_file
+ template=$1
+ curl "$web_maven_project_root/templates/$template"
 }
 
 function tpl_out(){
