@@ -27,7 +27,6 @@ frontend_modules=$(cd $maven_project_root; echo  */ | sed 's,/,,g' | tr ' ' '\n'
 # get template content
 function get(){
  template=$1
- echo curl "$web_root/templates/$template" >> urls.txt
  curl "$web_root/templates/$template"
 }
 
